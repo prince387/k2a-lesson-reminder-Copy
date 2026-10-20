@@ -17,8 +17,6 @@ module.exports = async (req, res) => {
     const chatId = message && message.chat && message.chat.id;
     const text = message && message.text ? message.text.trim() : "";
 
-    // Telegram's Start button generates a /start message.
-    // Teachers do not need to type the command themselves.
     if (
       chatId &&
       (text === "/start" || text.startsWith("/start "))
@@ -35,6 +33,7 @@ module.exports = async (req, res) => {
             text:
               "Welcome to K2A Lesson Reminder Bot! 🎓\n\n" +
               "You are connected to the lesson reminder service.\n\n" +
+              "Your Telegram Chat ID is: " + chatId + "\n\n" +
               "Your lesson reminders, lesson summaries, and Google Docs links " +
               "will be sent here automatically before your lessons.\n\n" +
               "You do not need to type any commands. Sit back and let the bot " +
@@ -50,7 +49,6 @@ module.exports = async (req, res) => {
       }
     }
 
-    // Ignore all other messages. The bot does not process commands or replies.
     return res.status(200).json({ ok: true });
 
   } catch (error) {
